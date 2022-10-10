@@ -10,7 +10,7 @@
             VerticalOptions="Center">
         
             <Label
-                Text="Emotion Detection Demo"
+                Text="Cognitive Services Demo"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 HorizontalOptions="Center" />
@@ -30,10 +30,10 @@
                 HorizontalOptions="Center" />
 
             <Button
-                x:Name="DetectEmotionButton"
-                Text="Detect Emotion"
-                SemanticProperties.Hint="Detects emotion from captured image"
-                Clicked="OnCounterClicked"
+                x:Name="ExtractTextButton"
+                Text="Extract Text"
+                SemanticProperties.Hint="Extracts text from captured image"
+                Clicked="ExtractTextButton_Clicked"
                 HorizontalOptions="Center" />
 
         </VerticalStackLayout>
