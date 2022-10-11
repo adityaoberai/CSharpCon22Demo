@@ -13,12 +13,19 @@ public partial class MainPage : ContentPage
 		InitializeComponent();
 	}
 
+    /// <summary>
+    ///     Captures picture to extract text from
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
 	private async void CaptureImageButton_Clicked(object sender, EventArgs e)
 	{
         if (MediaPicker.Default.IsCaptureSupported)
         {
+            // Capture photo using the device's Camera app
             var photo = await MediaPicker.CapturePhotoAsync();
 
+            // Save photo locally as temporary data if captured successfully
             if (photo != null)
             {
                 string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
@@ -38,14 +45,20 @@ public partial class MainPage : ContentPage
 		}
     }
 
+    /// <summary>
+    ///     Extracts text from captured picture
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private async void ExtractTextButton_Clicked(object sender, EventArgs e)
     {
         var credentials = new CognitiveServicesHelper();
-        var client = new ComputerVisionClient(new ApiKeyServiceClientCredentials(credentials.ComputerVisionAPIKey)) { Endpoint = credentials.ComputerVisionAPIEndpoint };
+        var client = new ComputerVisionClient(new ApiKeyServiceClientCredentials(credentials.ComputerVisionAPIKey));
+        client.Endpoint = credentials.ComputerVisionAPIEndpoint;
 
         // Read text using local image path
         using FileStream capture = File.OpenRead(filePath);
-        var textHeaders = await client.ReadInStreamAsync(capture);
+        ReadInStreamHeaders textHeaders = await client.ReadInStreamAsync(capture);
 
         // After the request, get the operation location (operation ID)
         string operationLocation = textHeaders.OperationLocation;
@@ -64,8 +77,8 @@ public partial class MainPage : ContentPage
         }
         while (results.Status == OperationStatusCodes.Running || results.Status == OperationStatusCodes.NotStarted);
 
-        // Display the found text.
-        var textUrlFileResults = results.AnalyzeResult.ReadResults;
+        // Display the found text
+        IList<ReadResult> textUrlFileResults = results.AnalyzeResult.ReadResults;
         string output = "";
         foreach (ReadResult page in textUrlFileResults)
         {

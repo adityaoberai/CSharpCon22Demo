@@ -18,21 +18,21 @@
             <Image
                 x:Name="CapturedImage"
                 Source="dotnet_bot.png"
-                SemanticProperties.Description="Picture to detect emotions in"
+                SemanticProperties.Description="Picture to extract text from"
                 HeightRequest="300"
                 HorizontalOptions="Center" />
 
             <Button
                 x:Name="CaptureImageButton"
                 Text="Capture image"
-                SemanticProperties.Hint="Captures image that you want to detect emotions in"
+                SemanticProperties.Hint="Captures picture to extract text from"
                 Clicked="CaptureImageButton_Clicked"
                 HorizontalOptions="Center" />
 
             <Button
                 x:Name="ExtractTextButton"
                 Text="Extract Text"
-                SemanticProperties.Hint="Extracts text from captured image"
+                SemanticProperties.Hint="Extracts text from captured picture"
                 Clicked="ExtractTextButton_Clicked"
                 HorizontalOptions="Center" />
 
